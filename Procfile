@@ -1,0 +1,1 @@
+web: gunicorn posgrados.wsgi --log-file -
