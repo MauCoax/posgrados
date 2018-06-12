@@ -76,8 +76,15 @@ WSGI_APPLICATION = 'posgrados.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd8s4sj49jicf6b',
+        'USER' : 'qaerkghqrdnnth',
+        'PASSWORD' : 'f8731efc49dc88906998791c9322b2fb308e5941d66bd8fb0de9c45e07d45c8a',
+        'HOST': 'ec2-54-204-2-26.compute-1.amazonaws.com',
+        'POT' : '5432',
+
+'
+'
     }
 }
 
