@@ -82,9 +82,6 @@ DATABASES = {
         'PASSWORD' : 'f8731efc49dc88906998791c9322b2fb308e5941d66bd8fb0de9c45e07d45c8a',
         'HOST': 'ec2-54-204-2-26.compute-1.amazonaws.com',
         'POT' : '5432',
-
-'
-'
     }
 }
 
