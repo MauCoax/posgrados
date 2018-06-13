@@ -1,5 +1,6 @@
 from django.conf.urls import url, include
 from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 
 
 from . import views
@@ -17,3 +18,5 @@ urlpatterns = [
     url(r'^usuarios/$', views.crear_usuario),
 
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
