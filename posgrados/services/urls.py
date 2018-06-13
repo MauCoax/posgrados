@@ -14,5 +14,6 @@ router.register(r'usuario',views.)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^usuarios/$', crear_usuario, name='crear_usuario'),
+    url(r'^usuarios/$', views.crear_usuario),
+
 ]
