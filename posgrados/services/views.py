@@ -3,6 +3,7 @@ from .serializers import UserSerializer, UsuariosSerializer
 from rest_framework import status, viewsets, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import Usuario
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -12,8 +13,12 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 #
-@api_view(['POST'])
+@api_view(['POST','GET'])
 def crear_usuario(request):
+    if request.method == 'GET':
+        propiedad = Usuario.objects.all()
+        serializer = UsuariosSerializer(propiedad, many=True)
+        return Response(serializer.data)
     if request.method=='POST':
         serializer=UsuariosSerializer(data=request.data)
         print(request.data)
