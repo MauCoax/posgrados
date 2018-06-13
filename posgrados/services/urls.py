@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
-
+from .views import crear_usuario
 
 from . import views
 
@@ -15,7 +15,7 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^usuarios/$', views.crear_usuario),
+    url(r'^usuarios/$', crear_usuario),
 
 ]
 
