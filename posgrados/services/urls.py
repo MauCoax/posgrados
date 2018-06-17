@@ -7,6 +7,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'usuarios', views.crear_usuario)
 
 
 
@@ -18,5 +19,6 @@ urlpatterns = [
     url(r'^usuarios/$', crear_usuario),
 
 ]
+
 
 urlpatterns = format_suffix_patterns(urlpatterns)
