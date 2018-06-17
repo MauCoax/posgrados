@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^services/', include('services.urls')),
     url(r'^', include(router.urls)),
+    url(r'^(?P<pk>\d+)$)',views.UsuarioViewSet.as_view, name='usuario-list')
 
 ]
