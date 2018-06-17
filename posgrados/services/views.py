@@ -12,23 +12,26 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+
+
 #
+
 class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuariosSerializer
 
-@api_view(['POST','GET'])
+
+@api_view(['POST', 'GET'])
 def crear_usuario(request):
     if request.method == 'GET':
         propiedad = Usuario.objects.all()
         serializer = UsuariosSerializer(propiedad, many=True)
         return Response(serializer.data)
-    if request.method=='POST':
-        serializer=UsuariosSerializer(data=request.data)
+    if request.method == 'POST':
+        serializer = UsuariosSerializer(data=request.data)
         print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

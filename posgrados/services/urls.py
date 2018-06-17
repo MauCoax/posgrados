@@ -6,7 +6,7 @@ from .views import crear_usuario
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+#router.register(r'users', views.UserViewSet)
 router.register(r'usuarios', views.UsuarioViewSet)
 
 
@@ -16,7 +16,6 @@ router.register(r'usuarios', views.UsuarioViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^usuarios/$', crear_usuario),
 
 ]
 
