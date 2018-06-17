@@ -6,7 +6,7 @@ from .services import views
 
 
 router = routers.SimpleRouter()
-router.register(r'usuarios', views.UsuarioViewSet)
+router.register(r'usuarios', views.UsuarioViewSet, 'user-list')
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^services/', include('services.urls')),
