@@ -7,7 +7,7 @@ from . import views
 
 router = routers.SimpleRouter()
 #router.register(r'users', views.UserViewSet)
-#router.register(r'usuarios', views.UsuarioViewSet)
+router.register(r'usuarios', views.UsuarioViewSet)
 
 
 
