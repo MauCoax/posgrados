@@ -5,7 +5,7 @@ from .views import crear_usuario
 
 from . import views
 
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 #router.register(r'users', views.UserViewSet)
 router.register(r'usuarios', views.UsuarioViewSet)
 
