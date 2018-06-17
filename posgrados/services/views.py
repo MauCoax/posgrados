@@ -17,6 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
 #
 
 class UsuarioViewSet(viewsets.ModelViewSet):
+    lookup_field = 'pk'
     queryset = Usuario.objects.all()
     serializer_class = UsuariosSerializer
 
