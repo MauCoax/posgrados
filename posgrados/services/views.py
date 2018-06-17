@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, UsuariosSerializer
-from rest_framework import status, viewsets, filters
+from rest_framework import status, viewsets, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Usuario
@@ -13,6 +13,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 #
+class UsuarioViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuariosSerializer
+
 @api_view(['POST','GET'])
 def crear_usuario(request):
     if request.method == 'GET':
