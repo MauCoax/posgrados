@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 #
 
-class Usuario (models.Model) :
+class Usuario2 (models.Model) :
      #  rolid = models.ForeignKey('Rol',on_delete=models.CASCADE)
     id_usuario = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=25)
@@ -18,8 +18,7 @@ class Usuario (models.Model) :
 class Noticia (models.Model) :
     emcabezado = models.CharField(max_length=50)
     cuerpo = models.CharField(max_length=100)
-
-    id_user = models.ForeignKey('Usuario', models.SET_NULL,
+    id_user = models.ForeignKey('Usuario2', models.SET_NULL,
     blank=True,
     null=True,)
     def __str__(self):

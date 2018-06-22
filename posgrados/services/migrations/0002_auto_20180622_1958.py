@@ -63,24 +63,5 @@ class Migration(migrations.Migration):
                 ('rolId', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='services.Rol')),
             ],
         ),
-        migrations.RemoveField(
-            model_name='usuario',
-            name='id',
-        ),
-        migrations.AddField(
-            model_name='usuario',
-            name='id_usuario',
-            field=models.AutoField(default=1, primary_key=True, serialize=False),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='noticia',
-            name='id_user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='services.Usuario'),
-        ),
-        migrations.AddField(
-            model_name='usuario',
-            name='rol_id',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='services.Rol'),
-        ),
+       
     ]
