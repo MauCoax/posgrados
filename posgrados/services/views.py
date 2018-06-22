@@ -21,7 +21,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuariosSerializer
 
-
 @api_view(['POST', 'GET'])
 def crear_usuario(request):
     if request.method == 'GET':
