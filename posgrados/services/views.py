@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, UsuariosSerializer
-from rest_framework import status, viewsets, generics
+from .serializers import UserSerializer, UsuariosSerializer, RolSerializer
+from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Usuario2
+from .models import Usuario2, Rol
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,17 +21,15 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario2.objects.all()
     serializer_class = UsuariosSerializer
 
-@api_view(['POST', 'GET'])
-def crear_usuario(request):
-    if request.method == 'GET':
-        propiedad = Usuario2.objects.all()
-        serializer = UsuariosSerializer(propiedad, many=True)
-        return Response(serializer.data)
-    if request.method == 'POST':
-        serializer = UsuariosSerializer(data=request.data)
-        print(request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class UsuarioAPICreateView(generics.CreateAPIView):
+    lookup_field = 'usuario_id'
+    serializer_class = UsuariosSerializer
+    def get_queryset(self):
+        return Usuario2.objects.all()
+class RolAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+    lookup_field = 'rol_id'
+    serializer_class = RolSerializer
+    def get_queryset(self):
+        return Rol.objects.all()
+    def post(self, request , *args, **kwargs):
+        return self.create(request , *args, **kwargs)

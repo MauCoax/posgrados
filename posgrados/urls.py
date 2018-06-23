@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^services/', include('services.urls')),
     url(r'^', include(router.urls)),
     url(r'^services/usuarios/(?P<pk>\d+)/$', views.UsuarioViewSet.as_view, name='usuario-list'),
-
+    url(r'^services/usuarios/$', views.UsuarioAPICreateView.as_view(), name='usuario-create'),
+    url(r'^services/roles/$', views.RolAPICreate.as_view(), name='roles-create'),
 ]

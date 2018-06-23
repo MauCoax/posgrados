@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Usuario2
+from .models import Usuario2, Rol
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -18,3 +18,8 @@ class UsuariosSerializer(serializers.ModelSerializer):
         model= Usuario2
         fields= '__all__'
         extra_kwargs ={'contrasena': {'write_only': True, 'required': True}}
+
+class RolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rol
+        fields = '__all__'
