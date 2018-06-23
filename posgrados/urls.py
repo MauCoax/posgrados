@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^services/roles/$', views.RolAPICreate.as_view(), name='roles-create'),
     url(r'^services/permisos/$', views.PermisosAPICreate.as_view(), name='permisos-create'),
     url(r'^services/rolpermisos/$', views.RolPermisoAPICreate.as_view(), name='rolpermisos-create'),
+    url(r'^services/noticia/$', views.NoticiaAPICreate.as_view(), name='noticia-create'),
 
 ]

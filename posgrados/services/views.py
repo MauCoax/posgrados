@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer
+from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer, NoticiaSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Usuario2, Rol , Permiso, RolPermiso
+from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -60,6 +60,16 @@ class RolPermisoAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         return RolPermiso.objects.all()
+
+    def post(self, request , *args, **kwargs):
+        return self.create(request , *args, **kwargs)
+
+class NoticiaAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+    lookup_field = 'id'
+    serializer_class = NoticiaSerializer
+
+    def get_queryset(self):
+        return Noticia.objects.all()
 
     def post(self, request , *args, **kwargs):
         return self.create(request , *args, **kwargs)

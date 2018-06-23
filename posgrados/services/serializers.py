@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Usuario2, Rol,Permiso, RolPermiso
+
+
+from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -32,4 +34,9 @@ class PermisoSerializer(serializers.ModelSerializer):
 class RolPermisoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RolPermiso
+        fields = '__all__'
+
+class NoticiaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Noticia
         fields = '__all__'
