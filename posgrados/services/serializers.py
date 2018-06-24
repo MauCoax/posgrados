@@ -2,13 +2,13 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
 
-from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia
+from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups')
-
+        fields = ( 'username', 'email', 'password')
+        extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -39,4 +39,9 @@ class RolPermisoSerializer(serializers.ModelSerializer):
 class NoticiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Noticia
+        fields = '__all__'
+
+class AspiranteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aspirante
         fields = '__all__'

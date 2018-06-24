@@ -1,20 +1,25 @@
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer, NoticiaSerializer
+from rest_framework.permissions import IsAuthenticated , AllowAny
+
+
+from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia
+from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
+class Usuario2APICreateView(mixins.CreateModelMixin,generics.ListAPIView):
+    lookup_field = 'id'
     serializer_class = UserSerializer
 
+    def get_queryset(self):
+        return User.objects.all()
 
-#
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     lookup_field = 'pk'
@@ -70,6 +75,18 @@ class NoticiaAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
     def get_queryset(self):
         return Noticia.objects.all()
+
+    def post(self, request , *args, **kwargs):
+        return self.create(request , *args, **kwargs)
+
+class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    lookup_field = 'id_aspirante'
+    serializer_class = AspiranteSerializer
+
+
+    def get_queryset(self):
+        return Aspirante.objects.all()
 
     def post(self, request , *args, **kwargs):
         return self.create(request , *args, **kwargs)
