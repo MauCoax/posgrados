@@ -1,13 +1,20 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from rest_framework import serializers
 
 
 from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante
 
+
+class PermisionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Permission
+        fields = '__all__'
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ( 'username', 'email', 'password')
+        fields = ('username', 'email', 'password', 'first_name', 'last_name')
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):

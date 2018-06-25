@@ -1,12 +1,23 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from rest_framework.permissions import IsAuthenticated , AllowAny
 
 
-from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer
+from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
+
+class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    lookup_field = 'id'
+    serializer_class = PermisionsSerializer
+
+    def get_queryset(self):
+        return Permission.objects.all()
+
+    def post(self, request , *args, **kwargs):
+        return self.create(request , *args, **kwargs)
 
 
 class GroupAPICreateView(mixins.CreateModelMixin,generics.ListAPIView):
