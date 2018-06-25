@@ -13,7 +13,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ('url', 'name')
+        fields = ('name')
 
 class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,25 +21,30 @@ class UsuariosSerializer(serializers.ModelSerializer):
         fields= '__all__'
         extra_kwargs ={'contrasena': {'write_only': True, 'required': True}}
 
+
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
         fields = '__all__'
+
 
 class PermisoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permiso
         fields = '__all__'
 
+
 class RolPermisoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RolPermiso
         fields = '__all__'
 
+
 class NoticiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Noticia
         fields = '__all__'
+
 
 class AspiranteSerializer(serializers.ModelSerializer):
     class Meta:
