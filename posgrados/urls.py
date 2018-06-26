@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.conf import settings
 from rest_framework import routers
 from .services import views
-
+from rest_framework.authtoken.views import ObtainAuthToken
 
 
 
@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^services/noticia/$', views.NoticiaAPICreate.as_view(), name='noticia-create'),
     url(r'^services/usuarios2/$', views.Usuario2APICreateView.as_view(), name='usuario-create'),
     url(r'^services/aspirante/$', views.AspiranteAPICreate.as_view(), name='usuario-create'),
+    url(r'^auth/', ObtainAuthToken.as_view()),
 
 ]

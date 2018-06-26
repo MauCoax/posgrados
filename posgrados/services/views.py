@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
 
 class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+
     permission_classes = (AllowAny,)
     lookup_field = 'id'
     serializer_class = PermisionsSerializer
