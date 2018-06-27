@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 #
 
+
 class Usuario2 (models.Model) :
      #  rolid = models.ForeignKey('Rol',on_delete=models.CASCADE)
     id_usuario = models.AutoField(primary_key=True)
@@ -15,6 +16,7 @@ class Usuario2 (models.Model) :
     def __str__(self):
         return str(self.nombre)
 
+
 class Noticia (models.Model) :
     emcabezado = models.CharField(max_length=50)
     cuerpo = models.CharField(max_length=100)
@@ -23,6 +25,7 @@ class Noticia (models.Model) :
     null=True,)
     def __str__(self):
         return str(self.emcabezado)
+
 
 class Aspirante (models.Model) :
     id_aspirante = models.AutoField(primary_key=True)
