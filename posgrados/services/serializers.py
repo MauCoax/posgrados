@@ -25,12 +25,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         return user
-    
+
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ('name')
+        fields = '__all__'
 
 class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
