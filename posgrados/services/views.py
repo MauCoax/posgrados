@@ -1,12 +1,25 @@
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework.permissions import IsAuthenticated , AllowAny
 
 
-from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
+from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
+
+class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+
+    permission_classes = (IsAuthenticated,)
+    lookup_field = 'id'
+    serializer_class = PermisionsMixinSerializer
+
+    def get_queryset(self):
+        return PermissionsMixin.objects.all()
+
+    def post(self, request , *args, **kwargs):
+        return self.create(request , *args, **kwargs)
+
 
 class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
@@ -98,6 +111,7 @@ class RolPermisoAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class NoticiaAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+    permission_classes = (AllowAny,)
     lookup_field = 'id'
     serializer_class = NoticiaSerializer
 

@@ -1,8 +1,13 @@
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework import serializers
 
 
 from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante
+
+class PermisionsMixinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PermissionsMixin
+        fields = '__all__'
 
 
 class PermisionsSerializer(serializers.ModelSerializer):
