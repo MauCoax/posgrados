@@ -23,6 +23,7 @@ class Noticia (models.Model) :
     id_user = models.ForeignKey('Usuario2', models.SET_NULL,
     blank=True,
     null=True,)
+    fecha = models.DateField(auto_now=True)
     def __str__(self):
         return str(self.emcabezado)
 

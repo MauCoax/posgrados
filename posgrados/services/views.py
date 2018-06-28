@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
 
+
 class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
     permission_classes = (IsAuthenticated,)
@@ -19,6 +20,18 @@ class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
     def post(self, request , *args, **kwargs):
         return self.create(request , *args, **kwargs)
+
+
+
+@api_view(['POST'])
+def asignarrol(request,id,id2):
+    try:
+        rol=Group.objects.get(id=id)
+    except Group.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method=='POST':
+        rol.user_set.add(id=id2)
+        rol.objects.save()
 
 
 class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
+from django.contrib.auth.models import User, Group, Permission, PermissionsMixin, GroupManager
 from rest_framework import serializers
 
 
