@@ -24,6 +24,7 @@ class Noticia (models.Model) :
     blank=True,
     null=True,)
     fecha = models.DateField(auto_now=True)
+
     def __str__(self):
         return str(self.emcabezado)
 
@@ -45,10 +46,14 @@ class Aspirante (models.Model) :
     municipio = models.CharField(max_length=50)
     lugar_trab = models.CharField(max_length=50)
     programa = models.CharField(max_length=50)
+
     def __str__(self):
-        return str(self.nombre_aspirante)
+                return str(self.nombre_aspirante)
 
 
+class Codigo (models.Model):
+    id_codigo=models.AutoField(primary_key=True)
+    codigo=models.CharField(max_length=8)
 
 
 class Rol(models.Model):
@@ -61,6 +66,8 @@ class Rol(models.Model):
 #     def __str__(self):
 #         return str(self.nombre)
 #
+
+
 class Permiso(models.Model):
      permisoId = models.AutoField(primary_key=True)
      nombre_permiso = models.CharField(max_length=50)
