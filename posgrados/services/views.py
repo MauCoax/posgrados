@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework.permissions import IsAuthenticated , AllowAny
-
+from rest_framework.authentication import TokenAuthentication
 
 from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
@@ -10,7 +10,7 @@ from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
 
 
 class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
-
+    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PermisionsMixinSerializer
