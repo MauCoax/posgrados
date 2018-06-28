@@ -31,6 +31,7 @@ def asignarrol(request,id=None,id2=None):
         try:
             rol.user_set.add(id2)
             rol.objects.save()
+            return Response(status=status.HTTP_201_CREATED)
         except Group.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
