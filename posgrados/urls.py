@@ -11,7 +11,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^services/usuarios/$', views.Usuario2APICreateView.as_view(), name='usuario-create'),
-    url(r'^services/roless/(?P<id>[0-9]\d+)/usuario/(<?P<id2>[0-9]\d+)/$', views.asignarrol, name='roles-usuarios'),
+    url(r'^services/roless/(?P<id>(\d+))/usuario/(?P<id2>(\d+))/$', views.asignarrol, name='roles-usuarios'),
     url(r'^services/roles/$', views.GroupAPICreateView.as_view(), name='roles-create'),
     url(r'^services/permisos/$', views.PermissionsAPICreate.as_view(), name='permisos-create'),
     url(r'^services/rolpermisos/$', views.PermissionMixinAPICreate.as_view(), name='rolpermisos-create'),

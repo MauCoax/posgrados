@@ -21,22 +21,25 @@ class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
     def post(self, request , *args, **kwargs):
         return self.create(request , *args, **kwargs)
 
-
-
-@api_view(['POST'])
-def asignarrol(request,id,id2):
+@api_view(['POST','GET'])
+def asignarrol(request,id=None,id2=None):
     try:
         rol=Group.objects.get(id=id)
     except Group.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method=='POST':
-        rol.user_set.add(id=id2)
-        rol.objects.save()
+        try:
+            rol.user_set.add(id2)
+            rol.objects.save()
+        except Group.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 
 
 class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
-
-    permission_classes = (AllowAny,)
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PermisionsSerializer
 
@@ -48,6 +51,8 @@ class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class GroupAPICreateView(mixins.CreateModelMixin,generics.ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = GroupSerializer
 
@@ -59,7 +64,8 @@ class GroupAPICreateView(mixins.CreateModelMixin,generics.ListAPIView):
 
 
 class Usuario2APICreateView(mixins.CreateModelMixin,generics.ListAPIView):
-    permission_classes = (AllowAny,)
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = UserSerializer
 
@@ -136,6 +142,8 @@ class NoticiaAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     permission_classes = (AllowAny,)
     lookup_field = 'id_aspirante'
     serializer_class = AspiranteSerializer
