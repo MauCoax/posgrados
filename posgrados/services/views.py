@@ -10,8 +10,7 @@ from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
 
 
 class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     lookup_field = 'id'
     serializer_class = PermisionsMixinSerializer
 
@@ -22,8 +21,8 @@ class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
         return self.create(request , *args, **kwargs)
 
 @api_view(['POST','GET'])
-@permission_classes((IsAuthenticated, ))
-@authentication_classes((TokenAuthentication, ))
+@permission_classes((AllowAny, ))
+#@authentication_classes((TokenAuthentication, ))
 def asignarrol(request,id=None,id2=None):
     try:
         rol=Group.objects.get(id=id)
@@ -38,8 +37,8 @@ def asignarrol(request,id=None,id2=None):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated, ))
-@authentication_classes((TokenAuthentication, ))
+@permission_classes((AllowAny, ))
+#@authentication_classes((TokenAuthentication, ))
 def rolusuarios(request, id=None):
     try:
         rol=Group.objects.get(id=id)
@@ -54,8 +53,9 @@ def rolusuarios(request, id=None):
 
 
 class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
+    #authentication_classes = (TokenAuthentication,)
+    #permission_classes = (IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = PermisionsSerializer
 
@@ -67,8 +67,9 @@ class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class GroupAPICreateView(mixins.CreateModelMixin,generics.ListAPIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
+    #authentication_classes = (TokenAuthentication,)
+    #permission_classes = (IsAuthenticated,)
     lookup_field = 'id'
     serializer_class = GroupSerializer
 
@@ -80,8 +81,8 @@ class GroupAPICreateView(mixins.CreateModelMixin,generics.ListAPIView):
 
 
 class Usuario2APICreateView(mixins.CreateModelMixin,generics.ListAPIView):
-    authentication_classes = (TokenAuthentication,)
-    
+    #authentication_classes = (TokenAuthentication,)
+    permission_classes = (AllowAny,)
     lookup_field = 'id'
     serializer_class = UserSerializer
 
