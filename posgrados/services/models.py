@@ -51,9 +51,10 @@ class Aspirante (models.Model) :
                 return str(self.nombre_aspirante)
 
 
-class Codigo (models.Model):
+class Validacion (models.Model):
     id_codigo=models.AutoField(primary_key=True)
     codigo=models.CharField(max_length=8)
+    vigencia= models.DateField()
 
 
 class Rol(models.Model):

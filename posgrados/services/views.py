@@ -2,9 +2,9 @@ from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.authentication import TokenAuthentication
 
-from .serializers import UserSerializer, UsuariosSerializer, RolSerializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
+from .serializers import UserSerializer, UsuariosSerializer, RolUsuariosSerializer,RolSerializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
 
@@ -22,6 +22,8 @@ class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
         return self.create(request , *args, **kwargs)
 
 @api_view(['POST','GET'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((TokenAuthentication, ))
 def asignarrol(request,id=None,id2=None):
     try:
         rol=Group.objects.get(id=id)
@@ -30,12 +32,25 @@ def asignarrol(request,id=None,id2=None):
     if request.method=='POST':
         try:
             rol.user_set.add(id2)
-            rol.objects.save()
+            #rol.objects.save()
             return Response(status=status.HTTP_201_CREATED)
         except Group.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((TokenAuthentication, ))
+def rolusuarios(request, id=None):
+    try:
+        rol=Group.objects.get(id=id)
+    except Group.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    try:
+        rol.get_user.all()
+        serializer = RolUsuariosSerializer(rol)
+        return Response(serializer.data)
+    except Group.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):

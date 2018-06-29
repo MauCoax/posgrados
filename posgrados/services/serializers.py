@@ -4,6 +4,24 @@ from rest_framework import serializers
 
 from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante
 
+
+class RolUsuariosSerializer(serializers.ModelSerializer):
+
+    users_list = serializers.SerializerMethodField()
+    def get_users_list(self, instance):
+        users=[]
+        u=instance.users.get_queryset()
+        for i in u:
+            users.append(i.desc)
+        return users
+
+    class Meta:
+        model = Group
+        fields =('users_list', )
+
+
+
+
 class PermisionsMixinSerializer(serializers.ModelSerializer):
     class Meta:
         model = PermissionsMixin
