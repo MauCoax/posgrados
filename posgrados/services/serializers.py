@@ -5,7 +5,7 @@ from rest_framework import serializers
 from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante
 
 
-class RolUsuariosSerializer(serializers.ModelSerializer):
+class RolUsuariosSerializer(serializers.HyperlinkedModelSerializer):
 
     users_list = serializers.SerializerMethodField()
     def get_users_list(self, instance):
