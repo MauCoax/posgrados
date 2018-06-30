@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 #
@@ -20,7 +21,7 @@ class Usuario2 (models.Model) :
 class Noticia (models.Model) :
     emcabezado = models.CharField(max_length=50)
     cuerpo = models.CharField(max_length=100)
-    id_user = models.ForeignKey('Usuario2', models.SET_NULL,
+    id_user = models.ForeignKey( User , models.SET_NULL,
     blank=True,
     null=True,)
     fecha = models.DateField(auto_now=True)
