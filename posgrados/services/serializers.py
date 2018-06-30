@@ -45,6 +45,15 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return user
 
 
+class User1Serializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name')
+
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group

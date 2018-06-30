@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.authentication import TokenAuthentication
-
-from .serializers import UserSerializer, UsuariosSerializer, RolUsuariosSerializer,RolSerializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+from .serializers import UserSerializer, UsuariosSerializer, RolUsuariosSerializer,RolSerializer,User1Serializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
+from rest_framework.authtoken.models import Token
 
 
 class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
@@ -64,6 +65,14 @@ class PermissionsAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
     def post(self, request , *args, **kwargs):
         return self.create(request , *args, **kwargs)
+
+class CustomObtainAuthToken(ObtainAuthToken):
+    def post(self,request,*args, **kwargs):
+        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        user = User.objects.get(id=token.user_id)
+        serializer = User1Serializer(user, many=False)
+        return Response({'token': token.key, 'user': serializer.data})
 
 
 class GroupAPICreateView(mixins.CreateModelMixin,generics.ListAPIView):

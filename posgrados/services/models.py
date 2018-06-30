@@ -25,9 +25,17 @@ class Noticia (models.Model) :
     blank=True,
     null=True,)
     fecha = models.DateField(auto_now=True)
+    imagen = models.CharField(max_length=250, blank=True)
 
     def __str__(self):
         return str(self.emcabezado)
+
+
+class Image(models.Model):
+    img = models.ImageField(upload_to='uploads/{0}'.format("%d-%m-%y/%H_%M_%S"), default='uploads/f1.png')
+
+    def __str__(self):
+        return str(self.img)
 
 
 class Aspirante (models.Model) :
@@ -49,7 +57,6 @@ class Aspirante (models.Model) :
     programa = models.CharField(max_length=50)
     id_user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, )
     id_val = models.ForeignKey('validacion', models.SET_NULL, blank=True, null=True, )
-
 
     def __str__(self):
                 return str(self.nombre_aspirante)
