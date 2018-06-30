@@ -47,6 +47,9 @@ class Aspirante (models.Model) :
     municipio = models.CharField(max_length=50)
     lugar_trab = models.CharField(max_length=50)
     programa = models.CharField(max_length=50)
+    id_user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, )
+    id_val = models.ForeignKey('validacion', models.SET_NULL, blank=True, null=True, )
+
 
     def __str__(self):
                 return str(self.nombre_aspirante)
@@ -62,6 +65,7 @@ class Rol(models.Model):
 
     nombre = models.CharField(max_length=50)
     rolid = models.AutoField(primary_key=True)
+
     def __str__(self):
         return str(self.nombre)
 #
