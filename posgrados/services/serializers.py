@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework import serializers
 
 
-from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante
+from .models import Usuario2, Rol,Permiso, RolPermiso, Noticia, Aspirante,Image
 
 
 class RolUsuariosSerializer(serializers.HyperlinkedModelSerializer):
@@ -94,3 +94,11 @@ class AspiranteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aspirante
         fields = '__all__'
+
+
+class ImgSerializer(serializers.ModelSerializer):
+    img = serializers.ImageField(max_length=None, use_url=True)
+
+    class Meta:
+        model= Image
+        fields= '__all__'

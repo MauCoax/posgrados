@@ -2,11 +2,11 @@ from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
-from .serializers import UserSerializer, UsuariosSerializer, RolUsuariosSerializer,RolSerializer,User1Serializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
+from .serializers import UserSerializer, UsuariosSerializer, ImgSerializer,RolUsuariosSerializer,RolSerializer,User1Serializer, PermisoSerializer,PermisionsMixinSerializer, RolPermisoSerializer, NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
-from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante
+from .models import Usuario2, Rol , Permiso, RolPermiso, Noticia, Aspirante,Image
 from rest_framework.authtoken.models import Token
 
 
@@ -180,3 +180,21 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
     def post(self, request , *args, **kwargs):
         return self.create(request , *args, **kwargs)
+
+
+@api_view(['GET','POST'])
+def imageApi(request):
+    if request.method=='GET':
+        imagenes=Image.objects.all()
+        serializer=ImgSerializer(imagenes, many=True)
+        return Response(serializer.data)
+    elif request.method=='POST':
+        serializer =ImgSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            ruta=str(Image.objects.latest('img'))
+            print(ruta)
+
+            return Response(ruta, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
