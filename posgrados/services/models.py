@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 #
@@ -25,7 +26,7 @@ class Noticia (models.Model) :
     blank=True,
     null=True,)
     fecha = models.DateField(auto_now=True)
-    imagen = models.CharField(max_length=250, blank=True)
+    imagen = ArrayField(models.CharField(max_length=250, blank=True), size=10)
 
     def __str__(self):
         return str(self.emcabezado)
