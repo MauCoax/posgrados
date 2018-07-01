@@ -183,6 +183,7 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 @api_view(['GET','POST'])
+@permission_classes((AllowAny, ))
 def imageApi(request):
     if request.method=='GET':
         imagenes=Image.objects.all()
