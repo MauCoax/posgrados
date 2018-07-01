@@ -32,7 +32,7 @@ class Noticia (models.Model) :
 
 
 class Image(models.Model):
-    img = models.ImageField(upload_to='uploads/{0}'.format("%d-%m-%y/%H_%M_%S"), default='uploads/f1.png')
+    img = models.ImageField(upload_to='uploads/{0}'.format("%d-%m-%y/%H_%M_%S"), default='static/f1.png')
 
     def __str__(self):
         return str(self.img)
