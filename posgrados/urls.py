@@ -4,7 +4,7 @@ from django.conf import settings
 from rest_framework import routers
 from .services import views
 from rest_framework.authtoken.views import ObtainAuthToken
-
+from django.conf.urls.static import static
 
 
 
@@ -24,4 +24,4 @@ urlpatterns = [
     url(r'^imagen/$', views.imageApi, name='imagen'),
 
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
