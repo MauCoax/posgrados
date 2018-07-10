@@ -5,17 +5,7 @@ from django.contrib.auth.models import User
 #
 
 
-class Usuario2 (models.Model) :
-     #  rolid = models.ForeignKey('Rol',on_delete=models.CASCADE)
-    id_usuario = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=25)
-    correo = models.EmailField()
-    contrasena = models.CharField(max_length=15)
-    rol_id = models.ForeignKey('Rol', models.SET_NULL,
-    blank=True,
-    null=True,)
-    def __str__(self):
-        return str(self.nombre)
+
 
 
 class Noticia (models.Model) :
