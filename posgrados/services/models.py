@@ -30,6 +30,7 @@ class Image(models.Model):
 
 class Aspirante (models.Model) :
     id_aspirante = models.AutoField(primary_key=True)
+    nombreuser_aspirante = models.CharField(max_length=10)
     nombre_aspirante = models.CharField(max_length=20)
     apellido_aspirante = models.CharField(max_length=20)
     contrasena_aspirante = models.CharField(max_length=10)

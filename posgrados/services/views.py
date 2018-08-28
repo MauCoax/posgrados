@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.response import Response
 from .models import  Noticia, Aspirante,Image
 from rest_framework.authtoken.models import Token
+import json
 
 
 class PermissionMixinAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
@@ -100,7 +101,8 @@ class Usuario2APICreateView(mixins.CreateModelMixin,generics.ListAPIView):
     def get_queryset(self):
         return User.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request,id=None, *args, **kwargs):
+
         return self.create(request, *args, **kwargs)
 
 
@@ -127,7 +129,13 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
         return Aspirante.objects.all()
 
     def post(self, request , *args, **kwargs):
-        return self.create(request , *args, **kwargs)
+        json_data=json.loads(request.body)
+        nombre=json_data["nombre_aspirante"]
+        user=User.objects.create()
+        user.first_name=nombre
+        user.objects.save()
+
+        return self.create(request , id=user.id, *args, **kwargs)
 
 
 @api_view(['GET','POST'])
