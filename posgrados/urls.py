@@ -18,10 +18,12 @@ urlpatterns = [
     url(r'^services/rolpermisos/$', views.PermissionMixinAPICreate.as_view(), name='rolpermisos-create'),
     url(r'^services/noticia/$', views.NoticiaAPICreate.as_view(), name='noticia-create'),
     url(r'^services/usuarios/$', views.Usuario2APICreateView.as_view(), name='usuario-create'),
-    url(r'^services/aspirante/$', views.AspiranteAPICreate.as_view(), name='usuario-create'),
+    url(r'^services/aspirante/$', views.AspiranteAPICreate.as_view(), name='aspirante-create'),
     url(r'^auth/', views.CustomObtainAuthToken.as_view()),
     url(r'^services/rol/(?P<id>(\d+))/$', views.rolusuarios, name='roles-usuarios'),
     url(r'^imagen/$', views.imageApi, name='imagen'),
-
+    url(r'^services/docentes/$',views.DocenteViewSet.as_view(), name='docentes-create'),
+    url(r'^services/pasos/$',views.PasosApiCreate.as_view(), name='pasos-create'),
+    url(r'^services/procedimiento/$',views.ProcedimientoApiCreate.as_view(), name='procedimiento-create'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 #
@@ -52,9 +53,42 @@ class Aspirante (models.Model) :
     def __str__(self):
                 return str(self.nombre_aspirante)
 
+class Docente(models.Model) :
+    id_docente = models.AutoField(primary_key=True)
+    usuario = models.CharField(max_length=15)
+    password = models.CharField(max_length=10)
+    nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
+    fecha_naci = models.DateField()
+    telefono = models.CharField(max_length=15)
+    movil = models.CharField(max_length=15)
+    email = models.CharField(max_length=35)
+    formacion = ArrayField(models.CharField(max_length=20),size=5)
+    titulo = ArrayField(models.CharField(max_length=20),size=5)
+
+    def __str__(self):
+        return (self.nombre,self.apellido)
 
 class Validacion (models.Model):
     id_codigo=models.AutoField(primary_key=True)
     codigo=models.CharField(max_length=8)
     vigencia= models.DateField()
+
+class Procedimiento(models.Model):
+    id_procedimiento = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=500)
+
+    def __str__(self):
+        return(self.nombre)
+
+class Pasos(models.Model):
+    id_paso = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    descripcion = models.CharField(max_length=500)
+    id_proceimiento = models.ForeignKey('Procedimiento', models.SET_NULL, blank=True, null=True,)
+    orden = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return(self.nombre)
 

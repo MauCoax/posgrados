@@ -2,11 +2,11 @@ from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
-from .serializers import UserSerializer, ImgSerializer,RolUsuariosSerializer,User1Serializer, PermisionsMixinSerializer,  NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
+from .serializers import UserSerializer, ImgSerializer,RolUsuariosSerializer,PasosSerializer,ProcedimientosSerializer,DocentesSerializer,User1Serializer, PermisionsMixinSerializer,  NoticiaSerializer, AspiranteSerializer, GroupSerializer, PermisionsSerializer
 from rest_framework import status, viewsets, generics, mixins
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
-from .models import  Noticia, Aspirante,Image
+from .models import  Noticia, Aspirante,Image, Docente, Pasos ,Procedimiento
 from rest_framework.authtoken.models import Token
 import json
 
@@ -119,14 +119,15 @@ class NoticiaAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
 
 class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
     permission_classes = (AllowAny,)
     lookup_field = 'id_aspirante'
     serializer_class = AspiranteSerializer
 
     def get_queryset(self):
         return Aspirante.objects.all()
+
+    def post(self, request , *args, **kwargs):
+        return self.create(request , *args, **kwargs)
 
     def post(self, request , *args, **kwargs):
         json_data=json.loads(request.body)
@@ -155,3 +156,26 @@ def imageApi(request):
             return Response(ruta, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DocenteViewSet(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id_docente'
+    serializer_class = DocentesSerializer
+
+    def get_queryset(self):
+        return Docente.objects.all()
+
+class PasosApiCreate(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id_paso'
+    serializer_class = PasosSerializer
+
+    def get_queryset(self):
+        return Pasos.objects.all()
+
+
+class ProcedimientoApiCreate(generics.ListCreateAPIView, generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id_procedimiento'
+    serializer_class = ProcedimientosSerializer
+
+    def get_queryset(self):
+        return Procedimiento.objects.all()
