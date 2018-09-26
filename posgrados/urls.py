@@ -23,7 +23,9 @@ urlpatterns = [
     url(r'^services/rol/(?P<id>(\d+))/$', views.rolusuarios, name='roles-usuarios'),
     url(r'^imagen/$', views.imageApi, name='imagen'),
     url(r'^services/docentes/$',views.DocenteViewSet.as_view(), name='docentes-create'),
+    url(r'^services/pasos/(?P<id_paso>(\d+))/$',views.PasosApiCreateRetrive.as_view(), name='pasos-create'),
     url(r'^services/pasos/$',views.PasosApiCreate.as_view(), name='pasos-create'),
+    url(r'^services/procedimiento/(?P<id_procedimiento>(\d+))/$',views.ProcedimientoApiCreateRetrive.as_view(), name='procedimiento-create'),
     url(r'^services/procedimiento/$',views.ProcedimientoApiCreate.as_view(), name='procedimiento-create'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

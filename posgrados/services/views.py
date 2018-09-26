@@ -165,7 +165,14 @@ class DocenteViewSet(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAP
     def get_queryset(self):
         return Docente.objects.all()
 
-class PasosApiCreate(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+class PasosApiCreate(generics.ListCreateAPIView):
+    lookup_field = 'id_paso'
+    serializer_class = PasosSerializer
+
+    def get_queryset(self):
+        return Pasos.objects.all()
+
+class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id_paso'
     serializer_class = PasosSerializer
 
@@ -173,9 +180,19 @@ class PasosApiCreate(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAP
         return Pasos.objects.all()
 
 
-class ProcedimientoApiCreate(generics.ListCreateAPIView, generics.RetrieveUpdateDestroyAPIView):
+class ProcedimientoApiCreate( generics.ListCreateAPIView):
     lookup_field = 'id_procedimiento'
     serializer_class = ProcedimientosSerializer
 
     def get_queryset(self):
         return Procedimiento.objects.all()
+
+class ProcedimientoApiCreateRetrive( generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id_procedimiento'
+    serializer_class = ProcedimientosSerializer
+
+    def get_queryset(self):
+        return Procedimiento.objects.all()
+
+
+
