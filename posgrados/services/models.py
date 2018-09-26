@@ -59,6 +59,8 @@ class Docente(models.Model) :
     password = models.CharField(max_length=10)
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
+    dui = models.CharField(max_length=10)
+    genero = models.CharField(max_length=15)
     fecha_naci = models.DateField()
     telefono = models.CharField(max_length=15)
     movil = models.CharField(max_length=15)
