@@ -185,6 +185,7 @@ def imageApi(request):
 
 
 class DocenteViewSet(generics.ListCreateAPIView):
+    permission_classes(AllowAny,)
     lookup_field = 'id_docente'
     serializer_class = DocentesSerializer
 
@@ -192,6 +193,7 @@ class DocenteViewSet(generics.ListCreateAPIView):
         return Docente.objects.all()
 
 class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes(AllowAny, )
     lookup_field = 'id_docente'
     serializer_class = DocentesSerializer
 
@@ -199,6 +201,7 @@ class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
         return Docente.objects.all()
 
 class PasosApiCreate(generics.ListCreateAPIView):
+    permission_classes(AllowAny, )
     lookup_field = 'id_paso'
     serializer_class = PasosSerializer
 
@@ -206,6 +209,7 @@ class PasosApiCreate(generics.ListCreateAPIView):
         return Pasos.objects.all()
 
 class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes(AllowAny, )
     lookup_field = 'id_paso'
     serializer_class = PasosSerializer
 
@@ -214,6 +218,7 @@ class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ProcedimientoApiCreate( generics.ListCreateAPIView):
+    permission_classes(AllowAny, )
     lookup_field = 'id_procedimiento'
     serializer_class = ProcedimientosSerializer
 
@@ -221,6 +226,7 @@ class ProcedimientoApiCreate( generics.ListCreateAPIView):
         return Procedimiento.objects.all()
 
 class ProcedimientoApiCreateRetrive( generics.RetrieveUpdateDestroyAPIView):
+    permission_classes(AllowAny, )
     lookup_field = 'id_procedimiento'
     serializer_class = ProcedimientosSerializer
 
