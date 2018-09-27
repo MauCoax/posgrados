@@ -47,6 +47,7 @@ class Aspirante (models.Model) :
     municipio = models.CharField(max_length=50)
     lugar_trab = models.CharField(max_length=50)
     programa = models.CharField(max_length=50)
+    aceptado = models.BooleanField()
     id_user = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, )
     id_val = models.ForeignKey('validacion', models.SET_NULL, blank=True, null=True, )
 

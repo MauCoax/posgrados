@@ -74,7 +74,7 @@ class AspiranteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        aspirante = Aspirante.objects.create_user(**validated_data)
+        aspirante = Aspirante.objects.create_aspirante(**validated_data)
         return aspirante
 
 

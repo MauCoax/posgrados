@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User, Group, Permission, PermissionsMixin
+from django.core.mail import  send_mail
+from django.conf import settings
 from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -126,8 +128,6 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
     def get_queryset(self):
         return Aspirante.objects.all()
 
-    def post(self, request , *args, **kwargs):
-        return self.create(request , *args, **kwargs)
 
     def post(self, request , *args, **kwargs):
         json_data=json.loads(request.body)
@@ -135,8 +135,34 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
         user=User.objects.create()
         user.first_name=nombre
         user.objects.save()
+        self.apirante.id_user=user.id
 
         return self.create(request , id=user.id, *args, **kwargs)
+
+@api_view(['GET'])
+@permission_classes((AllowAny, ))
+def AspiranteAceptado(request, id_aspirante=None):
+    try:
+        aspirante= Aspirante.objects.get(id_aspirante=id_aspirante)
+    except Aspirante.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        aspirante.aceptado=True
+        serializer=AspiranteSerializer(aspirante)
+        aspirante.save()
+        asunto='Aspirante aceptado '
+        mensaje_email='usted a sido aceptado para formar parte de la escuela de posgrados, favor de pasar a recoger su carte de aceptacion a la escuela'
+        email_from=settings.EMAIL_HOST_USER
+        email_to=[aspirante.email,'maud3ca@hotmail.es']
+        send_mail(asunto,
+                  mensaje_email,
+                  email_from,
+                  email_to,
+                  fail_silently=False
+                  )
+        return Response(serializer.data)
+
 
 
 @api_view(['GET','POST'])
@@ -158,7 +184,14 @@ def imageApi(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DocenteViewSet(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+class DocenteViewSet(generics.ListCreateAPIView):
+    lookup_field = 'id_docente'
+    serializer_class = DocentesSerializer
+
+    def get_queryset(self):
+        return Docente.objects.all()
+
+class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id_docente'
     serializer_class = DocentesSerializer
 
