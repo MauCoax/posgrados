@@ -125,6 +125,12 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
     lookup_field = 'id_aspirante'
     serializer_class = AspiranteSerializer
 
+    def get_queryset(self):
+        return Aspirante.objects.all()
+
+
+    def post(self, request , *args, **kwargs):
+        json_data=json.loads(request.body)
         nombre=json_data["nombre_aspirante"]
         user=User.objects.create()
         user.first_name=nombre
@@ -133,12 +139,6 @@ class AspiranteAPICreate(mixins.CreateModelMixin, generics.ListAPIView):
 
         return self.create(request , id=user.id, *args, **kwargs)
 
-    def get_queryset(self):
-        return Aspirante.objects.all()
-
-
-    def post(self, request , *args, **kwargs):
-        json_data=json.loads(request.body)
 @api_view(['GET'])
 @permission_classes((AllowAny, ))
 def AspiranteAceptado(request, id_aspirante=None):
@@ -185,7 +185,7 @@ def imageApi(request):
 
 
 class DocenteViewSet(generics.ListCreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes=(AllowAny,)
     lookup_field = 'id_docente'
     serializer_class = DocentesSerializer
 
@@ -193,7 +193,7 @@ class DocenteViewSet(generics.ListCreateAPIView):
         return Docente.objects.all()
 
 class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes=(AllowAny, )
     lookup_field = 'id_docente'
     serializer_class = DocentesSerializer
 
@@ -201,7 +201,7 @@ class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
         return Docente.objects.all()
 
 class PasosApiCreate(generics.ListCreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes=(AllowAny, )
     lookup_field = 'id_paso'
     serializer_class = PasosSerializer
 
@@ -209,7 +209,7 @@ class PasosApiCreate(generics.ListCreateAPIView):
         return Pasos.objects.all()
 
 class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes=(AllowAny, )
     lookup_field = 'id_paso'
     serializer_class = PasosSerializer
 
@@ -218,7 +218,7 @@ class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
 
 
 class ProcedimientoApiCreate( generics.ListCreateAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes=(AllowAny, )
     lookup_field = 'id_procedimiento'
     serializer_class = ProcedimientosSerializer
 
@@ -226,7 +226,7 @@ class ProcedimientoApiCreate( generics.ListCreateAPIView):
         return Procedimiento.objects.all()
 
 class ProcedimientoApiCreateRetrive( generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes=(AllowAny, )
     lookup_field = 'id_procedimiento'
     serializer_class = ProcedimientosSerializer
 
