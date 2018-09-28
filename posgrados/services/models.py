@@ -66,8 +66,8 @@ class Docente(models.Model) :
     telefono = models.CharField(max_length=15)
     movil = models.CharField(max_length=15)
     email = models.CharField(max_length=35)
-    formacion = ArrayField(models.CharField(max_length=20),size=5)
-    titulo = ArrayField(models.CharField(max_length=20),size=5)
+    formacion = models.CharField(max_length=20)
+    titulo =models.CharField(max_length=20)
 
     def __str__(self):
         return (self.nombre,self.apellido)

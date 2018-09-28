@@ -206,6 +206,7 @@ class PasosApiCreate(generics.ListCreateAPIView):
     serializer_class = PasosSerializer
 
     def get_queryset(self):
+
         return Pasos.objects.all()
 
 class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
