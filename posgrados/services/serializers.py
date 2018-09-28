@@ -74,7 +74,7 @@ class AspiranteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        aspirante = Aspirante.objects.create_aspirante(**validated_data)
+        aspirante = Aspirante.objects.create(**validated_data)
         return aspirante
 
 
@@ -92,7 +92,7 @@ class DocentesSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
     def create(self, validated_data):
-        docente = Docente.objects.create_docente(**validated_data)
+        docente = Docente.objects.create(**validated_data)
         return docente
 
 class PasosSerializer(serializers.ModelSerializer):
