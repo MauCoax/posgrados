@@ -192,6 +192,11 @@ class DocenteViewSet(generics.ListCreateAPIView):
     def get_queryset(self):
         return Docente.objects.all()
 
+
+
+
+
+
 class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=(AllowAny, )
     lookup_field = 'id_docente'
@@ -200,6 +205,7 @@ class DocenteViewSetRetrive(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return Docente.objects.all()
 
+
 class PasosApiCreate(generics.ListCreateAPIView):
     permission_classes=(AllowAny, )
     lookup_field = 'id_paso'
@@ -207,7 +213,48 @@ class PasosApiCreate(generics.ListCreateAPIView):
 
     def get_queryset(self):
 
+
         return Pasos.objects.all()
+
+    def perform_create(self, serializer_class):
+        pasos=Pasos.objects.all(filter(id_procedimiento=self.request.data.id_proceimiento))
+        ordennuevo=pasos.count()+1
+        self.request.orden=ordennuevo
+        serializer_class.save(self.request)
+        return ordennuevo
+
+
+@api_view(['GET','POST'])
+@permission_classes((AllowAny, ))
+def Pasosnuevos(request):
+    if request.method=='POST':
+        json_data= json.loads(request.body)
+        pasos=Pasos.objects.filter(id_proceimiento=json_data["id_proceimiento"])
+        serializer=PasosSerializer(json_data)
+
+        if(pasos.count()==0):
+            orden=1
+        else:
+            orden=pasos.count()+1
+        json_data["orden"]=orden
+        try:
+            serializer = PasosSerializer(data=json_data)
+            if serializer.is_valid():
+                serializer.save()
+
+        except:
+            fail={'fail':True}
+            return Response(fail)
+
+        return Response (status=status.HTTP_201_CREATED)
+    if request.method=='GET':
+        pasos=Pasos.objects.all()
+        serializer=PasosSerializer(pasos, many=True)
+        return Response( serializer.data)
+
+
+
+
 
 class PasosApiCreateRetrive(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=(AllowAny, )

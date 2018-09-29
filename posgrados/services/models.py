@@ -31,7 +31,7 @@ class Image(models.Model):
 
 class Aspirante (models.Model) :
     id_aspirante = models.AutoField(primary_key=True)
-    nombreuser_aspirante = models.CharField(max_length=10)
+    nombreuser_aspirante = models.CharField(max_length=10, unique=True)
     nombre_aspirante = models.CharField(max_length=20)
     apellido_aspirante = models.CharField(max_length=20)
     contrasena_aspirante = models.CharField(max_length=10)
@@ -56,7 +56,7 @@ class Aspirante (models.Model) :
 
 class Docente(models.Model) :
     id_docente = models.AutoField(primary_key=True)
-    usuario = models.CharField(max_length=15)
+    usuario = models.CharField(max_length=15,unique=True)
     password = models.CharField(max_length=10)
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
